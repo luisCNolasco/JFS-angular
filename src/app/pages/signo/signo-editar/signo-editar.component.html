@@ -1,0 +1,62 @@
+<mat-card style="width: 400px;margin: auto;margin-top: 20px;">
+    <mat-card-content>
+        <div style="text-align: right;margin: 15px 0;">
+            <button type="button" mat-raised-button color="primary" (click)="addPatient()" ><mat-icon>add</mat-icon> Cliente</button>
+        </div>
+        <form style="display:flex;flex-direction: column;justify-content: center;" [formGroup]="form"
+            (submit)="operate()" class="example-container">
+
+            <div [hidden]="true">
+                <mat-form-field>
+                    <input matInput placeholder="ID" required formControlName="idSigno">
+                </mat-form-field>
+            </div>
+
+            <mat-form-field formGroupName="patient">
+                <mat-label>Patient</mat-label>
+                <mat-select formControlName="idPatient" required>
+                    <mat-option *ngFor="let item of patients" [value]="item.idPatient">{{item.firstName}} {{item.lastName}}
+                    </mat-option>
+                </mat-select>
+                <mat-error class="invalid">Is
+                    required</mat-error>
+              </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Fecha</mat-label>
+                <input matInput [matDatepicker]="picker" [min]="minDate" (dateChange)="changeDate($event)"
+                    formControlName="fecha">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="f['fecha'].errors?.['required'] && f['fecha'].touched" class="invalid">Is
+                    required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput placeholder="Temperatura" required formControlName="temperatura">
+                <mat-error *ngIf="f['temperatura'].errors?.['required'] && f['temperatura'].touched" class="invalid">Is
+                    required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput placeholder="Pulso" required formControlName="pulso">
+                <mat-error *ngIf="f['pulso'].errors?.['required'] && f['pulso'].touched" class="invalid">Is required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput placeholder="Ritmo" required formControlName="ritmo">
+                <mat-error *ngIf="f['ritmo'].errors?.['required'] && f['ritmo'].touched" class="invalid">Is required</mat-error>
+            </mat-form-field>
+
+            <button mat-raised-button type="submit" color="primary">
+                <mat-icon>done</mat-icon>
+                <span>Done</span>
+            </button>
+
+            <button mat-raised-button type="button" color="accent" (click)="cancel()">
+                <mat-icon>cancel</mat-icon>
+                <span>Cancel</span>
+            </button>
+        </form>
+    </mat-card-content>
+</mat-card>
